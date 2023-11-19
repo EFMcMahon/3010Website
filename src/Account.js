@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./Account.css";
 
 function Account() {
@@ -36,13 +37,23 @@ function Account() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/account",
+        accountInfo
+      );
+      console.log(response.data);
+      // Handle successful account update (e.g., notify the user)
+    } catch (error) {
+      console.error("Account update error:", error);
+      // Handle the error (e.g., show an error message)
+    }
   };
 
   return (
     <main className="accountForm">
-      {" "}
       <h1>Account Information</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name</label>

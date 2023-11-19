@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Registration() {
   const [newUser, setNewUser] = useState({
@@ -15,8 +16,19 @@ function Registration() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/register",
+        newUser
+      );
+      console.log(response.data);
+      // Handle registration success (e.g., notify the user, redirect, etc.)
+    } catch (error) {
+      console.error("Registration error:", error);
+      // Handle the error (e.g., show an error message)
+    }
   };
 
   return (

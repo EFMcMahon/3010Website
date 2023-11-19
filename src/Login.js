@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Login({ setIsLoggedIn }) {
   const [credentials, setCredentials] = useState({
@@ -14,9 +15,18 @@ function Login({ setIsLoggedIn }) {
     }));
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setIsLoggedIn(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/login",
+        credentials
+      );
+      console.log(response.data);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (
