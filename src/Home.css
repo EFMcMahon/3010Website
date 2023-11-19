@@ -1,0 +1,53 @@
+.navbar {
+  margin-bottom: 0;
+  background-color: #00008b;
+  border-radius: 0;
+}
+
+.navbar-brand {
+  color: white;
+}
+
+.navbar-nav > li > a {
+  color: white;
+}
+
+.navbar-header .navbar-brand,
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus {
+  color: #add8e6;
+  text-decoration: none;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #add8e6;
+  color: blue;
+  padding: 15px;
+  text-align: center;
+}
+
+.footer a {
+  color: blue;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.force-text-center {
+  text-align: center !important;
+}
+
+@media (max-width: 767px) {
+  .navbar-nav {
+    margin-top: 15px;
+  }
+}
