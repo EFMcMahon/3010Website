@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "./userContext";
 
 function Login({ setIsLoggedIn }) {
   const [credentials, setCredentials] = useState({
-    username: "",
+    userName: "",
     password: "",
   });
+
+  const { login } = useContext(UserContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +25,7 @@ function Login({ setIsLoggedIn }) {
         "http://localhost:3001/login",
         credentials
       );
-      console.log(response.data);
+      login(response.data);
       setIsLoggedIn(true);
     } catch (error) {
       console.error("Login error:", error);
@@ -33,12 +36,12 @@ function Login({ setIsLoggedIn }) {
     <main>
       <form className="accountForm" onSubmit={handleLogin}>
         <h1>Login</h1>
-        <label htmlFor="username">User Name</label>
+        <label htmlFor="userName">User Name</label>
         <input
           type="text"
-          id="username"
-          name="username"
-          value={credentials.username}
+          id="userName"
+          name="userName"
+          value={credentials.userName}
           onChange={handleChange}
           required
         />

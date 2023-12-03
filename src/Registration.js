@@ -3,7 +3,7 @@ import axios from "axios";
 
 function Registration() {
   const [newUser, setNewUser] = useState({
-    username: "",
+    userName: "",
     password: "",
     repeatPassword: "",
   });
@@ -18,16 +18,23 @@ function Registration() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (newUser.password !== newUser.repeatPassword) {
+      console.error("Passwords do not match");
+      return;
+    }
+
     try {
-      const response = await axios.post(
-        "http://localhost:3001/register",
-        newUser
-      );
+      const response = await axios.post("http://localhost:3001/register", {
+        userName: newUser.userName,
+        password: newUser.password,
+      });
       console.log(response.data);
-      // Handle registration success (e.g., notify the user, redirect, etc.)
     } catch (error) {
-      console.error("Registration error:", error);
-      // Handle the error (e.g., show an error message)
+      console.error(
+        "Registration error:",
+        error.response?.data?.error || error
+      );
     }
   };
 
@@ -35,12 +42,12 @@ function Registration() {
     <main>
       <form className="accountForm" onSubmit={handleSubmit}>
         <h1>Registration</h1>
-        <label htmlFor="username">User Name</label>
+        <label htmlFor="userName">User Name</label>
         <input
           type="text"
-          id="username"
-          name="username"
-          value={newUser.username}
+          id="userName"
+          name="userName"
+          value={newUser.userName}
           onChange={handleChange}
           required
         />

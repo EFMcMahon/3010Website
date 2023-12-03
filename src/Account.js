@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "./userContext"; 
 import "./Account.css";
 
 function Account() {
+  const { user } = useContext(UserContext); 
+  const userId = user ? user.userId : null; 
+
   const [accountInfo, setAccountInfo] = useState({
+    userId: userId,
     firstName: "",
     lastName: "",
     address1: "",
@@ -15,6 +20,12 @@ function Account() {
     email: "",
   });
 
+  useEffect(() => {
+    if (!userId) {
+      console.error("No user ID provided");
+    }
+  }, [userId]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAccountInfo((prevState) => ({
@@ -25,6 +36,7 @@ function Account() {
 
   const handleReset = () => {
     setAccountInfo({
+      userId,
       firstName: "",
       lastName: "",
       address1: "",
@@ -45,10 +57,8 @@ function Account() {
         accountInfo
       );
       console.log(response.data);
-      // Handle successful account update (e.g., notify the user)
     } catch (error) {
       console.error("Account update error:", error);
-      // Handle the error (e.g., show an error message)
     }
   };
 
